@@ -15,7 +15,7 @@ console_handler.setLevel(logging.INFO)
 console_handler.setFormatter(logging.Formatter(log_console_format))
 main_logger.addHandler(console_handler)
 
-LOG_FILE='logs/zmqout.log'
+LOG_FILE='logs/check-zmqout.log'
 file_handler = logging.handlers.RotatingFileHandler(LOG_FILE,maxBytes = 50*1024*1024,backupCount=40)
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(logging.Formatter(log_file_format))
@@ -88,6 +88,7 @@ def doStart(endpoint):
         array = np.frombuffer(data, dtype=np.uint8)
         img = cv2.imdecode(array, cv2.IMREAD_UNCHANGED)
         result = detection(img)
+        logging.debug("Result is {}", result)
         # stream = BytesIO(data)
         # image = Image.open(stream).convert("RGBA")
         # if saveall:
